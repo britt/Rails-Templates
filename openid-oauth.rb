@@ -10,8 +10,8 @@ gem 'sqlite3-ruby', :lib => 'sqlite3'
 gem 'ruby-openid', :version => ">= 2.1.7", :lib => 'openid'
 gem 'authlogic-oid', :version => ">= 1.0.4", :lib => "authlogic_openid"
 gem 'authlogic', :version => ">= 2.1.2"
-gem "oauth"
-gem "oauth-plugin"
+gem "oauth", :version => ">= 0.3.6"
+gem "oauth-plugin", :version => ">= 0.3.14"
 gem 'will_paginate', :version => '>= 2.3.11', :source => 'http://gemcutter.org'
 gem 'aasm'
 
@@ -63,6 +63,9 @@ class User < ActiveRecord::Base
       "http://axschema.org/namePerson/first"
     ]
   end
+  
+  has_many :client_applications
+  has_many :tokens, :class_name=>"OauthToken",:order=>"authorized_at desc",:include=>[:client_application]
 
   attr_accessor :password, :password_confirmation
 
@@ -344,6 +347,8 @@ route "map.signup 'signup', :controller => 'users', :action => 'new'"
 
 generate :rspec
 generate :session, "user_session"
+generate :oauth_provider
+generate :oauth_consumer
 
 inside("spec") do
   run "mkdir spec_helpers"
