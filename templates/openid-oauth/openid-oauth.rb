@@ -113,7 +113,7 @@ class UserSessionsController < ApplicationController
     @user_session.save do |result|
       if result
         flash[:notice] = "Successfully logged in."
-        redirect_back_or_default root_url
+        redirect_back_or_default root_path
       else
         render :action => 'new'
       end
@@ -189,7 +189,7 @@ end
 USERS
   
   
-file "app/controllers/authentication.rb", <<-AUTH
+file "lib/authentication.rb", <<-AUTH
 module Authentication
   module Controller    
     def self.included(base)
@@ -246,6 +246,25 @@ module Authentication
   end
 end
 AUTH
+  
+file "lib/email_address.rb", <<-EMAIL
+EmailAddress = begin
+  qtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]'
+  dtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]'
+  atom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-' +
+    '\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+'
+  quoted_pair = '\\x5c[\\x00-\\x7f]'
+  domain_literal = "\\x5b(?:\#{dtext}|\#{quoted_pair})*\\x5d"
+  quoted_string = "\\x22(?:\#{qtext}|\#{quoted_pair})*\\x22"
+  domain_ref = atom
+  sub_domain = "(?:\#{domain_ref}|\#{domain_literal})"
+  word = "(?:\#{atom}|\#{quoted_string})"
+  domain = "\#{sub_domain}(?:\\x2e\#{sub_domain})*"
+  local_part = "\#{word}(?:\\x2e\#{word})*"
+  addr_spec = "\#{local_part}\\x40\#{domain}"
+  pattern = /\A\#{addr_spec}\z/
+end
+EMAIL
   
 inside("views") do
   run "mkdir user_sessions"
@@ -518,7 +537,7 @@ describe UserSessionsController do
         flash[:notice].should_not be_blank
       end
 
-      it "should redirect back or to the root_url" do
+      it "should redirect back or to the root_path" do
         request_proc.call
         response.should redirect_to(root_path)
       end
