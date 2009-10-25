@@ -22,6 +22,8 @@ git :init
 
 # Install the open id plugin
 plugin 'open_id_authentication', :git => 'git://github.com/rails/open_id_authentication.git', :submodule => true
+plugin 'ssl_requirement', :git => 'git://github.com/rails/ssl_requirement.git', :submodule => true
+
 rake "open_id_authentication:db:create"
 
 # Install Authlogic openid consumer scaffold
