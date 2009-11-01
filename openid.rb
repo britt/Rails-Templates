@@ -10,10 +10,9 @@ gem 'sqlite3-ruby', :lib => 'sqlite3'
 gem 'ruby-openid', :version => ">= 2.1.7", :lib => 'openid'
 gem 'authlogic-oid', :version => ">= 1.0.4", :lib => "authlogic_openid"
 gem 'authlogic', :version => ">= 2.1.2"
-gem "oauth", :version => ">= 0.3.6"
-gem "oauth-plugin", :version => ">= 0.3.14"
 gem 'will_paginate', :version => '>= 2.3.11', :source => 'http://gemcutter.org'
 gem 'aasm'
+gem 'install_theme'
 
 rake "gems:install", :sudo => true 
 
@@ -349,8 +348,6 @@ route "map.signup 'signup', :controller => 'users', :action => 'new'"
 
 generate :rspec
 generate :session, "user_session"
-generate :oauth_provider
-generate :oauth_consumer
 
 inside("spec") do
   run "mkdir spec_helpers"
