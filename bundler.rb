@@ -17,3 +17,5 @@ Gemfile
 file 'config/preinitializer.rb', <<-Preinitializer
   require "\#\{RAILS_ROOT\}/vendor/gems/environment"
 Preinitializer
+
+generate :rspec
