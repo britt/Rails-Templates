@@ -19,3 +19,7 @@ file 'config/preinitializer.rb', <<-Preinitializer
 Preinitializer
 
 generate :rspec
+run "rm -rf test"
+
+git :add => "."
+git :commit => "-a -m 'Initial commit'"
