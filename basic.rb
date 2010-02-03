@@ -146,10 +146,10 @@ end
 EMAIL
  
 inside("spec") do
-  run "mkdir spec_helpers"
+  run "mkdir support"
 end
   
-file "spec/spec_helpers/resource_controller_helper.rb", <<-RESOURCE_CONTROLLER_HELPER
+file "spec/support/resource_controller_helper.rb", <<-RESOURCE_CONTROLLER_HELPER
 module ResourceControllerHelper
   module InstanceMethods
     def controller_name
@@ -184,7 +184,7 @@ module ResourceControllerHelper
 end
 RESOURCE_CONTROLLER_HELPER
     
-file "spec/spec_helpers/routing_matcher.rb", <<-ROUTING_MATCHER
+file "spec/support/routing_matcher.rb", <<-ROUTING_MATCHER
 class RouteTo
   def initialize(routing_hash)
     @expected_route = routing_hash
