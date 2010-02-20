@@ -113,14 +113,14 @@ if yes?("Are you going to deploy to EngineYard Cloud?")
 end
 
 file ".gitignore", <<-GITIGNORE
-  log/*
-  tmp/*
-  .DS_Store
-  bin/*
-  vendor/gems/*
-  !vendor/gems/ruby/1.8/cache/
-  nbproject/*
-  db/*.sqlite3
+log/*
+tmp/*
+.DS_Store
+bin/*
+vendor/gems/*
+!vendor/gems/ruby/1.8/cache/
+nbproject/*
+db/*.sqlite3
 GITIGNORE
 
 plugin 'ssl_requirement', :git => 'git://github.com/rails/ssl_requirement.git', :submodule => true
