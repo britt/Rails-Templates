@@ -14,6 +14,7 @@ gem "sqlite3-ruby", ">= 1.2.5"
 gem "guid", ">= 0.1.1"
 
 gem "factory_girl", ">= 1.2.3", :only => :testing
+gem "faker", ">= 1.2.3"
 gem "rspec",:require_as => 'spec', :only => :testing
 gem "rspec-rails", :require_as => 'spec/rails', :only => :testing
 
